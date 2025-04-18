@@ -1,12 +1,13 @@
 import base64
 import json
 
+from services.strategies.Base64Encryption import Base64Encryption
+
+encryptor = Base64Encryption()
+
 def encrypt_payload(data):
-    encrypted = {}
-    for key, value in data.items():
-        if isinstance(value, (dict, list)):
-            value_str = json.dumps(value)
-        else:
-            value_str = str(value)
-        encrypted[key] = base64.b64encode(value_str.encode()).decode()
-    return encrypted
+    return 
+    {
+        k: encryptor.encrypt(json.dumps(v) if isinstance(v, (dict, list)) else str(v))
+        for k, v in data.items()
+    }
